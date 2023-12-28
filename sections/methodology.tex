@@ -37,4 +37,25 @@ perform this task are:
         \includegraphics[width=5in]{./figures/srcnn.jpg}
         \caption{SRCNN Representation}
     \end{figure}
+    \item {\bf ResNet:} The Residual Network (ResNet) architecture was primarily designed to ease the
+    training of networks as the number of layers increases. Indeed, while many works in
+    literature have indicated that deeper networks provide superior performance, there
+    comes a point when accuracy gets saturated and then quickly degrades. It is shown that
+    this is not due to overfitting, but due to the difficulty in optimizing and training very
+    deep networks. In particular, it was noted that deep networks may find it hard to learn
+    identity functions.\\
+    The Residual Network (ResNet) architecture was primarily designed to ease the
+    training of networks as the number of layers increases. Indeed, while many works in
+    literature have indicated that deeper networks provide superior performance, there
+    comes a point when accuracy gets saturated and then quickly degrades. It is shown that
+    this is not due to overfitting, but due to the difficulty in optimizing and training very
+    deep networks. In particular, it was noted that deep networks may find it hard to learn
+    identity functions.\\
+    To counter this problem, a number of skip/shortcut connections are utilized to
+    directly feed feature maps at any given level of the network to higher layers, thus
+    corresponding to the identity function. In this way, the network would only need to
+    learn a function that suppresses the responses (drive the outputs to zero) of intermediary
+    layers. \\
+    ResNet was applied to the SR domain to create SRResNet in, where it was also used as
+    the basis of a Generative Adversarial Network (GAN)-based network termed SRGAN. 
 \end{enumerate}
