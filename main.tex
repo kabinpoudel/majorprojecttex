@@ -7,6 +7,8 @@
 \usepackage{graphicx}
 \usepackage{geometry}
 \usepackage{newtxtext,newtxmath}
+\usepackage{sectsty}
+\usepackage{titlesec}
 \newgeometry{
     top=1in,
     bottom=1in,
@@ -20,6 +22,12 @@
     linkcolor=black,
     urlcolor=black
 }
+
+\titlelabel{\thetitle.\quad}
+
+% center section text
+\sectionfont{ \centering}
+
 \renewcommand{\baselinestretch}{1.5}
 \title{Comparison of different Image Super Resolution Techniques}
 \author{Kabin Poudel}
@@ -29,8 +37,8 @@
 \input{sections/titlepage.tex}
 \input{sections/copyright.tex}
 \input{sections/declaration.tex}
-\input{sections/abstract.tex}
 \input{sections/recommendation.tex}
+\input{sections/abstract.tex}
 \newpage
 {
   \setlength{\parskip}{0em}
