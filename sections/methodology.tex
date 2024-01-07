@@ -1,61 +1,21 @@
 \newpage
 \section{METHODOLOGY}
-Image Super Resolution is a branch of Artificial Intelligence that deals with
-upscaling a Low-Resolution Image to High Resolution Image, filling in the missing
-pixels with the help of learning from the environment using machine learning. There
-are other methods of upscale images like Linear or Bi-cubic interpolation but they do
-not generate any new information based on the environment and hence are not super
-useful to upscale an LR image. The retrieval of High-Resolution images based on
-underlying image is not new, there were techniques such as sparse representation-based
-methods. However, it was the advent of deep learning and convolutional neural
-networks that arguably brought about the most significant leaps forward, with the
-seminal work being the Super-Resolution Convolutional Neural Network (SRCNN)
-proposed by Dong et al. in 2014. Much work has been done since then, not only on the
-design and structure of the neural networks but also on the data used to train and
-evaluate these networks. Deep Learning based methods require huge amounts of data
-so that the model is not overfitted, the dataset needs to contain an HR and LR version of
-the same image. Images must be perfectly aligned to each other. To do so, the LR image
-is obtained by synthetically degrading image using a degradation model. 
-
-The ‘classical’ degradation model is the most commonly used, which considers
-down-sampling, blurring, and noise: 
+Image Super Resolution is a branch of Artificial Intelligence that deals with upscaling a Low-Resolution Image to High Resolution Image, filling in the missing pixels with the different techniques. There are other simpler methods to upscale images like Linear or Bi-cubic interpolation, but they do not generate any new information based on the environment and hence are not super useful to upscale an LR image. Deep Learning based methods require huge amounts of data so that the model is not overfitted, the dataset needs to contain an HR  LR version of the same image that are perfectly aligned to each other. We need to synthetically create LR images from HR images.
+The ‘classical’ degradation model is the most used, which considers down-sampling, blurring, and noise:
+ 
 $$I^{LR}= (I^{HR} \circledast k)\downarrow_s + n$$
 where $\circledast$ represents a convolution operation, k is a kernel (typically a Gaussian blurring
 kernel, but it can also represent other functions such as the Point Spread Function
 (PSF)), n represents additive noise, and ↓s is a downscaling operation that is typically
 assumed to be bicubic down-sampling with scale factor s.
-The aim of SR is to then reverse whichever degradation process is considered, to
-retrieve the original underlying high-fidelity image. Some of popular methods to
-perform this task are: 
-\subsection{Non-Blind SR Methods}
+SR aims to then reverse whichever degradation process is considered, to retrieve the original underlying high-fidelity image. We have implemented SSResNet and SRGAN till now. The methodology for them is explained below: 
 \begin{enumerate}
-    \item {\bf SRCNN:}The Super-Resolution Convolutional Neural Network (SRCNN) is considered to be the
-    pioneering work in using deep learning and convolutional neural networks for the task of SR. It only consists of three layers and requires the LR image to be up-sampled using
-    bicubic interpolation prior to being processed by the network, but it was shown to outperform the state-of-the-art methods of the time such as A+ and the sparse representation-based method. It was also shown that sparse-coding-based methods are equivalent to convolutional neural networks, which influenced SRCNN’s hyperparameter settings. While SRCNN has been used as a benchmark by numerous researchers, it is now comprehensively outclassed and is no longer used so frequently.
+    \item SRResNet: The SRResNet is a fully convolutional network designed for 4x super-resolution. It incorporates residual blocks with skip connections to increase the optimizability of the network despite its significant depth. The SRResNet is trained and used as a standalone network and provides a nice baseline for the SRGAN – for both comparison and initialization. We use the following architecture for this network.
     \begin{figure}[ht]
         \centering
-        \includegraphics[width=5in]{./figures/srcnn.jpg}
-        \caption{SRCNN Representation}
+        \includegraphics[width=6in]{./figures/srresnet.png}
+        \caption{SRResNet Architecture}
     \end{figure}
-    \item {\bf ResNet:} The Residual Network (ResNet) architecture was primarily designed to ease the
-    training of networks as the number of layers increases. Indeed, while many works in
-    literature have indicated that deeper networks provide superior performance, there
-    comes a point when accuracy gets saturated and then quickly degrades. It is shown that
-    this is not due to overfitting, but due to the difficulty in optimizing and training very
-    deep networks. In particular, it was noted that deep networks may find it hard to learn
-    identity functions.\\
-    The Residual Network (ResNet) architecture was primarily designed to ease the
-    training of networks as the number of layers increases. Indeed, while many works in
-    literature have indicated that deeper networks provide superior performance, there
-    comes a point when accuracy gets saturated and then quickly degrades. It is shown that
-    this is not due to overfitting, but due to the difficulty in optimizing and training very
-    deep networks. In particular, it was noted that deep networks may find it hard to learn
-    identity functions.\\
-    To counter this problem, a number of skip/shortcut connections are utilized to
-    directly feed feature maps at any given level of the network to higher layers, thus
-    corresponding to the identity function. In this way, the network would only need to
-    learn a function that suppresses the responses (drive the outputs to zero) of intermediary
-    layers. \\
-    ResNet was applied to the SR domain to create SRResNet in, where it was also used as
-    the basis of a Generative Adversarial Network (GAN)-based network termed SRGAN. 
-\end{enumerate}
+    The SRResNet first contains convolution block of large Kernel Size 9x9, stride of 1 and 64 channels with PreLU activation. There are 16 residual blocks with convolution layer of Kernel size 3x3 followed by batch normalization, PreLU same conv layer again and batch normalization again. The output then is passed through same 3x3 conv layer and batch normalized. Two subpixel convolution blocks are used followed by PreLU activation each of which provides two times upscaling. Finally, a convolution with large kernel size of 9x9 and 1 stride with 3 out channels for RGB is done with Tanh activation to get super resolved image.\\ In Forward Pass, SRResNet produces a 4x upscaled image from provided low-res image using the above architecture. Mean-Squared Error (MSE) is used as the loss function to compare the upscaled image and original high-quality image. MSE is a type of content loss but here it only looks in RGB space of predicted and target images. Minimizing the MSE by changing the parameters of the network will make the model produce images closer to the original images.
+
+    \end{enumerate}
