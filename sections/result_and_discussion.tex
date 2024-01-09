@@ -1,5 +1,23 @@
 \newpage
 \section{RESULT AND DISCUSSION}
+\subsection{Current Result}
+% Table
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    &PSNR & SISM & PSNR & SISM & PSNR & SISM \\
+    \hline
+    ResNet&29.83 & 0.887 & 28.275 & 0.795 & 27.203 & 0.751 \\
+    \hline
+    SRGAN &23.946 & 0.821 &25.112 & 0.715 & 24.631 & 0.662 \\
+    \hline
+    & \multicolumn{2}{|c|}{Set5}& \multicolumn{2}{|c|}{Set14} & \multicolumn{2}{|c|}{BSD100} \\
+    \hline
+    \end{tabular}
+    \caption{Evaluation Metrics in Test Datasets}
+\end{table}
+
 \subsection{Work Completed:}
 As we are planning on comparison of different methods. We have selecteed few methods like SRCNN, SRGAN, and ESRGAN. SRGAN involves residual network SRResNet which will be also used as baseline for SRGAN. We have trained and tested SRGAN on various sets of data involving CelebA, DIV2k, Flickr2k, OST and COCO(2014). CoCo has a large and diverse set of data and it perfromed well thats why we are finalizing this dataset for training further methods. 
 \subsection{Work Remaining}

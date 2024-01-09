@@ -24,4 +24,5 @@ SR aims to then reverse whichever degradation process is considered, to retrieve
     We can use CNN trained to classify images to find deeper meaning of patterns in images. This new representation space is more suitable for calculating content loss and can hallucinate new details showing creativity. We specifically use the VGG19 network as recommended in the paper. We use MSE-based content loss in this VGG space to compare the images. The use of content loss is only one component of the generator update, we use adversarial loss obviously. The super-resolved image is passed through the Discriminator with its weight frozen not to update the discriminator but to get the probability score $P_{HR}$ with misleading label and use the BCE loss $-logP_{HR}$ and resulting gradient information to update the Generator’s weights such that it produces images closer to its natural origin.
     GAN is trained in an interleaved fashion, where the generator and discriminator are alternatively trained for short periods of time just once before making the switch in this case.
 
+    \subsection{General Explanations}
     \end{enumerate}
