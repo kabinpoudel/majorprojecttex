@@ -18,6 +18,26 @@ In this chapter we will discuss about Data Collection, Data Preprocessing , Metr
         \item Cropping: We need to crop a random patch of image every time. So We create a fucntion to give  valid left, top, right, bottom postion of images for a certain patch size. In this case we use 96x96 patch of an image. We then use crop function of the PIL library to crop a patch of image by passing those postions.
         \item Downsampling: We use Bicubic downsampling  to downsample the cropped patch of image by a scaling factor of 4 in this case. Bicubic Downsampling is a method used to reduce the resolution of an image by averaging pixel values in a specific way. It is commonly employed in image processing and computer graphics when it's necessary to create a lower-resolution version of an image.
     \end{enumerate}
+    \item {\bf Training:} The training process is explained below
+    \begin{enumerate}
+        \item For SRResNet:
+        \begin{enumerate}
+            \item Input: Downsampled images of size 24x24.
+            \item Optimizer: Adam optimizer with a learning rate of 1e-4.
+            \item Loss fucntion:Mean Squared Error (MSE) loss between the generated images and the original high-resolution images.
+        \end{enumerate}
+        \item For SRGAN
+        \begin{enumerate}
+            \item Input: Downsampled images of size 24x24.
+            \item Optimizer: Adam optimizer with a learning rate of 1e-4.
+            \item Loss Function: \\
+            Perceptual Loss = Content Loss + Adversarial Loss
+            \begin{itemize}
+                \item Content loss: MSE loss but computed in the feature space of a VGG19 network. The VGG19 extracts features from both the super-resolved image and the original image, and the MSE is computed on these feature representations.
+                \item Adversarial loss: Binary Cross Entropy (BCE) with Logit Loss. The super-resolved images are fed into the discriminator, and the output of the discriminator is used to calculate the adversarial loss.
+            \end{itemize}
+        \end{enumerate}
+    \end{enumerate}
     \item {\bf Evaluation Metrics:} We use PSNR and SSIM as two evaluation Metrics to measure the performance of the models. Although, Images perception is very different for humans than these metrics. It provides some theoretical value to compare. The author of SRGAN paper suggested Mean opinion score as a better alternative but it is very difficult to conduct such survey.\\
     PSNR (Peak Signal-to-Noise Ratio) is a measure of the quality of a reconstructed or processed image. It compares the peak signal power to the noise power that affects the quality of the image. It can be calculated as :
     $$PSNR = 10*log_{10}(\frac{MAX^{2}}{MSE})$$
