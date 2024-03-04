@@ -17,4 +17,9 @@ Christian Ledig, Lucas Theis, Ferenc Huszar, Jose Caballero, Andrew~P. Aitken,
   adversarial network.
 \newblock {\em CoRR}, abs/1609.04802, 2016.
 
+\bibitem{r4}
+Chao Dong, Chen~Change Loy, Kaiming He, and Xiaoou Tang.
+\newblock Image super-resolution using deep convolutional networks.
+\newblock {\em CoRR}, abs/1501.00092, 2015.
+
 \end{thebibliography}
