@@ -17,6 +17,12 @@ During Training We calculated PSNR and SSIM for Set5 datasets at every epoch for
     \includegraphics[width=5.5in]{./figures/srgan_ssim.png}
     \caption{SRGAN PSNR and SSIM Plot for Set5}
 \end{figure}  
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=5.5in]{./figures/SRCNN_PSNR.png}
+    \includegraphics[width=5.5in]{./figures/SRCNN_SSIM.png}
+    \caption{SRCNN PSNR and SSIM Plot for Set5}
+\end{figure} 
     These metrics don't actually match with human perception but even if PSNR and SSIM is decreasing they are becoming more stable and we see model get better after each epoch.
 %  \clearpage
 %  \newpage
@@ -26,6 +32,10 @@ During Training We calculated PSNR and SSIM for Set5 datasets at every epoch for
     \begin{tabular}{|c|c|c|c|c|c|c|}
     \hline
     &PSNR & SISM & PSNR & SISM & PSNR & SISM \\
+    \hline
+    SRCNN(3x)&31.02 & 0.9 & 27.668 & 0.812 & 26.939 & 0.781 \\
+    \hline
+    SRCNN(4x)&28.751 & 0.844 & 25.72 & 0.734 & 25.44 & 0.696 \\
     \hline
     ResNet&29.83 & 0.887 & 28.275 & 0.795 & 27.203 & 0.751 \\
     \hline
