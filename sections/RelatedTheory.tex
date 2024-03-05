@@ -59,13 +59,13 @@ SR aims to then reverse whichever degradation process is considered, to retrieve
             \item {\bf Tanh:} Tanh function is similar to the sigmoid activation function, and even has the S-shaped with the difference in output range of -1 to 1. In Tanh, the larger the input (more positive), the closer the output value will be to 1.0, whereas the smaller the input (more negative), the closer the output will be to -1.0. 
             \begin{figure}[ht]
                 \centering
-                \includegraphics[width=3in]{./figures/tanhcurve.png}
+                \includegraphics[width=2.2in]{./figures/tanhcurve.png}
                 \caption{ Tanh curve}
             \end{figure} \\
             \item {\bf ReLU:} ReLU stands for Rectified Linear Unit. Although it gives an impression of a linear function, ReLU has a derivative function and allows for backpropagation while simultaneously making it computationally efficient. The main catch is that ReLU function does not activate all the neurons at the same time. The neurons will only be deactivated if the input to the ReLU function is less than zero.
             \begin{figure}[ht]
                 \centering
-                \includegraphics[width=3in]{./figures/relucurve.png}
+                \includegraphics[width=2.5in]{./figures/relucurve.png}
                 \caption{ Relu curve}
             \end{figure} \\
             Mathematically it can be represented as:
@@ -89,7 +89,7 @@ SR aims to then reverse whichever degradation process is considered, to retrieve
             \item {\bf Prelu:}Parametric ReLU is another variant of ReLU that aims to solve the problem of gradient’s becoming zero for the left half axis. This function provides the slope of the negative part of the function as an argument. 
             \begin{figure}[ht]
                 \centering
-                \includegraphics[width=3in]{./figures/prelucurve.png}
+                \includegraphics[width=2.5in]{./figures/prelucurve.png}
                 \caption{Parametric Relu curve}
             \end{figure} \\
             Mathematically it can be represented as:
@@ -106,11 +106,11 @@ SR aims to then reverse whichever degradation process is considered, to retrieve
         \end{itemize}
         \begin{figure}[ht]
             \centering
-            \includegraphics[width=4in]{./figures/pixelshuffle.png}
+            \includegraphics[width=3in]{./figures/pixelshuffle.png}
             \caption{Pixel Shuffle}
         \end{figure}
         \item {\bf Residual Block:} A residual block is a building block that contains one or more convolutional layers and a skip connection. The skip connection allows gradient to flow through the network more efficiently, improving the training process and avoiding the vanishing gradient problem.
-        \begin{figure}[ht]
+        \begin{figure}[h!]
             \centering
             \includegraphics[width=3in]{./figures/residualblock.png}
             \caption{Residual block}
