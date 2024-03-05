@@ -20,6 +20,12 @@ In this chapter we will discuss about Data Collection, Data Preprocessing , Metr
     \end{enumerate}
     \item {\bf Training:} The training process is explained below
     \begin{enumerate}
+        \item For SRCNN:
+        \begin{enumerate}
+            \item Input: Downsampled images of size 24x24 for 4x scaling and 32x32 for 3x scaling only in Y-channel.
+            \item Optimizer: Adam optimizer with a learning rate of 1e-4.
+            \item Loss fucntion:Mean Squared Error (MSE) loss between the generated images and the original high-resolution images.
+        \end{enumerate}
         \item For SRResNet:
         \begin{enumerate}
             \item Input: Downsampled images of size 24x24.
