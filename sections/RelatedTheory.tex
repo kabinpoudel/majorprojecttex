@@ -3,12 +3,13 @@
 \subsection{Architectural Explanations}
 Image Super Resolution upscales a Low-Resolution Image to High Resolution Image, filling in the missing pixels with the different techniques. There are other simpler methods to upscale images like Linear or Bi-cubic interpolation, but they do not generate any new information based on the environment and hence are not super useful to upscale an LR image. Deep Learning based methods require huge amounts of data so that the model is not overfitted, the dataset needs to contain an HR and LR version of the same image that are perfectly aligned to each other. We need to synthetically create LR images from HR images.\\
 SR aims to then reverse whichever degradation process is considered, to retrieve the original underlying high-fidelity image. We have implemented SRCNN, SSResNet and SRGAN. Their architecture is explained below: 
-\begin{enumerate}
+\begin{enumerate}[label=(\roman*)]
     \item {\bf SRCNN:} Super-Resolution Convolutional Neural Network, is a deep learning architecture devised for single-image super-resolution tasks. Developed by {\bf Dong et al. in 2014} \cite{r2}, SRCNN revolutionized image enhancement by learning complex mappings between low-resolution and high-resolution images directly from data. Its architecture consists of multiple layers of convolutional neural networks (CNNs), which process input images in a hierarchical manner, gradually extracting high-level features. The architecture of SRCNN is given below:
     \begin{figure}[ht]
         \centering
         \includegraphics[width=5in]{./figures/srcnn.jpg}
         \caption{SRCNN Architecture}
+        \par  Source: \url{https://arxiv.org/pdf/1501.00092}
     \end{figure} \\
     We converted image from training database into Y,Cb,Cr format and used only Y (Luminance) component for training the model. The primary loss function used in SRCNN is Mean Squared Error (MSE). We used Adam optimizer, optimizer is responsible for updating the network's parameters during the training process in order to minimize the chosen loss function.
 
@@ -17,6 +18,7 @@ SR aims to then reverse whichever degradation process is considered, to retrieve
         \centering
         \includegraphics[width=6in]{./figures/generator.png}
         \caption{SRResNet Architecture or Generator of SRGAN}
+        \par  Source: \url{https://arxiv.org/pdf/1609.04802}
     \end{figure} \\
     The SRResNet first contains convolution block of large Kernel Size 9x9, stride of 1 and 64 channels with PreLU activation. There are 16 residual blocks with convolution layer of Kernel size 3x3 followed by batch normalization, PreLU same conv layer again and batch normalization again. The output then is passed through same 3x3 conv layer and batch normalized. Two subpixel convolution blocks are used followed by PreLU activation each of which provides two times upscaling. Finally, a convolution with large kernel size of 9x9 and 1 stride with 3 out channels for RGB is done with Tanh activation to get super resolved image.\\ In Forward Pass, SRResNet produces a 4x upscaled image from provided low-res image using the above architecture. Mean-Squared Error (MSE) is used as the loss function to compare the upscaled image and original high-quality image. MSE is a type of content loss but here it only looks in RGB space of predicted and target images. Minimizing the MSE by changing the parameters of the network will make the model produce images closer to the original images.
     
@@ -26,6 +28,7 @@ SR aims to then reverse whichever degradation process is considered, to retrieve
         \centering
         \includegraphics[width=6in]{./figures/discriminator.png}
         \caption{Discriminator Architecture}
+        \par  Source: \url{https://arxiv.org/pdf/1609.04802}
     \end{figure} \\
     The Generator has same architecture as SRResNet. Training Discriminator is not different from any binary image classifier. It is trained on both real images and generated images from generator. In Forward Pass, it outputs the probability score $P_{HR}$. If the provided image was real, we desire the $P_{HR}$ to be as high as possible towards 1. And for generated image as low as possible towards 0. We use Binary Cross Entropy loss $-logP_{HR}$ when input image is real and $-logP_{SR}$ when image is generated. Here $P_{SR}=1-P_{HR}$. Minimizing these losses by changing the parameters will make discriminator predict higher probability for real images and lower probability for generated images.\\
     We use better content loss than that of SRResNet. In ResNet we use MSE loss in RGB space which produces overly smooth images with no finer details. There are a lot of possibilities of similar pixel combination that can be formed from low resolution image patch. When we use content loss in RGB space, it averages the output rather than choosing one of the combinations which would produce better result as an overly smooth “averaged” prediction will always have lower MSE.\\
@@ -33,12 +36,13 @@ SR aims to then reverse whichever degradation process is considered, to retrieve
     GAN is trained in an interleaved fashion, where the generator and discriminator are alternatively trained for short periods of time just once before making the switch in this case.
 \end{enumerate}
     \subsection{General Explanations}
-    \begin{enumerate}
+    \begin{enumerate}[label=(\roman*)]
         \item {\bf Conv2d:} Conv2D stands for two-dimensional convolution, a fundamental operation in convolutional neural networks (CNNs). A convolutional layer applies a series of filters or kernels to an input image. Each filter detects specific patterns or features, like edges, textures, or shapes. The convolution operation involves sliding these filters over the input image, performing element-wise multiplication between the filter and the overlapping portions of the image, and then summing up the results to create a feature map.
         \begin{figure}[ht]
             \centering
             \includegraphics[width=5in]{./figures/conv2d.png}
             \caption{A visual explanation of convolution. }
+            \par  Source: \url{https://indoml.files.wordpress.com/2018/03/convolution-with-multiple-filters2.png}
         \end{figure} \\
         \begin{itemize}
             \item {\bf Kernel:} A kernel describes a filter that we are going to pass over an input image. The kernel will move over the whole image, from left to right, from top to bottom by applying a convolutional product. The output of this operation is called a filtered image.
@@ -119,6 +123,7 @@ SR aims to then reverse whichever degradation process is considered, to retrieve
             \centering
             \includegraphics[width=3in]{./figures/pixelshuffle.png}
             \caption{Pixel Shuffle}
+            \par  Source: \url{https://production-media.paperswithcode.com/methods/pixelshuffle_Ed27NA5.pbm}
         \end{figure}
         \item {\bf Residual Block:} A residual block is a building block that contains one or more convolutional layers and a skip connection. The skip connection allows gradient to flow through the network more efficiently, improving the training process and avoiding the vanishing gradient problem.
         \begin{figure}[h!]

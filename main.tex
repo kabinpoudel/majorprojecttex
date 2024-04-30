@@ -12,6 +12,8 @@
 \usepackage{sectsty}
 \usepackage{titlesec}
 \usepackage[none]{hyphenat}
+\usepackage{enumitem}
+
 \newgeometry{
     top=1in,
     bottom=1in,
@@ -53,13 +55,21 @@
 % List of figures - if any
 
 \newpage
-\listoffigures 
+{%
+\let\oldnumberline\numberline%
+\renewcommand{\numberline}{\figurename~\oldnumberline}%
+\listoffigures%
+}
 \addcontentsline{toc}{section}{LIST OF FIGURES}
 
 % List of tables- if any
 
 \newpage
-\listoftables 
+{%
+\let\oldnumberline\numberline%
+\renewcommand{\numberline}{\tablename~\oldnumberline}%
+\listoftables%
+}
 \addcontentsline{toc}{section}{LIST OF TABLES}
 
 
@@ -75,8 +85,7 @@
 \input{sections/result_and_discussion}
 %\bibliographystyle{apalike}
 \newpage
+\addcontentsline{toc}{section}{References}
 \bibliographystyle{IEEEtran}
 \bibliography{sections/references.bib}
-% \input{sections/appendix}
-
 \end{document}
