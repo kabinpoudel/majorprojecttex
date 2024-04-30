@@ -48,8 +48,11 @@ SR aims to then reverse whichever degradation process is considered, to retrieve
             \item {\bf Out Channel:} Out Channel specifies the number of output channels produced by the convolutional layer. Each output channel corresponds to a distinct convolutional filter (or kernel) applied to the input.
         \end{itemize}
         \item {\bf Batch Normalization:} Batch normalization is a technique that normalizes the inputs to each layer in a network by adjusting and scaling to have zero mean and unit variance. This helps to reduce “internal covariate shift” problem which can hinder training. An internal covariant shift occurs when there is a change in input distribution to the network. When the input distribution changes, hidden layers try to learn to adapt to the new distribution. This slows down the training process. If a process slows down, it takes a long time to converge to a global minimum. Batch normalization transform the data so that its values have similar scale, making it easier for the network to learn and converge faster. \par
-        Formula for batch normalization:
-        $$y = \frac{x - E [x]}{\sqrt{Var[x] + \epsilon }}+\gamma + \beta $$
+        Formula for batch normalization:      
+        \begin{equation}
+        y = \frac{x - E [x]}{\sqrt{Var[x] + \epsilon }}+\gamma + \beta    
+        \end{equation}      
+         
         where, $\beta$ and $\gamma$ are learnable parameter vector. \\ 
         X represent the value of the feature map/channel.\\
         Var[X] is the variance of the mini batch for the feature map/channel.\\
@@ -62,47 +65,55 @@ SR aims to then reverse whichever degradation process is considered, to retrieve
                 \includegraphics[width=2.2in]{./figures/tanhcurve.png}
                 \caption{ Tanh curve}
             \end{figure} \\
-            \item {\bf ReLU:} ReLU stands for Rectified Linear Unit. Although it gives an impression of a linear function, ReLU has a derivative function and allows for backpropagation while simultaneously making it computationally efficient. The main catch is that ReLU function does not activate all the neurons at the same time. The neurons will only be deactivated if the input to the ReLU function is less than zero.
+            \item {\bf ReLU:} ReLU stands for Rectified Linear Unit. Although it gives an impression of a linear function, ReLU has a derivative function and allows for backpropagation while simultaneously making it computationally efficient. The main catch is that ReLU function does not activate all the neurons at the same time. The neurons will only be deactivated if the input to the ReLU function is less than zero. \cite{r6}
             \begin{figure}[ht]
                 \centering
                 \includegraphics[width=2.5in]{./figures/relucurve.png}
                 \caption{ Relu curve}
             \end{figure} \\
             Mathematically it can be represented as:
-            $$R(x) =\left \{\frac{x}{0} \ \ \ \ \begin{matrix}
-                if \ x\geq 0 & \\ if \ x < 0
-                & 
-               \end{matrix} \right\}$$
+            \begin{equation}
+                R(x) =\left \{\frac{x}{0} \ \ \ \ \begin{matrix}
+                    if \ x\geq 0 & \\ if \ x < 0
+                    & 
+                   \end{matrix} \right\}
+            \end{equation}
                The major limitation of ReLU is Dying ReLU problem. The negative side of the graph makes the gradient value zero. Due to this reason, during the backpropagation process, the weights and biases for some neurons are not updated. This can create dead neuron which never get activated.
             \item {\bf Leaky Relu:} : Leaky ReLU is an improved version of ReLU function to solve the Dying ReLU  problem as it has small positive slope in the negative area. The advantage of Leaky ReLU is same as ReLU, in addition to the fact that it does enable backpropagation, even for negative input values. By making this minor modification for negative input values, the gradient of the left side of the graph comes out to be a non-zero value.\\
             The limitation faced by Leaky ReLU is the prediction may not be consistent for negative input values.\\
             Mathematically it can be represented as:
-            $$f(x) =\left \{\frac{x}{0} \ \ \ \ \begin{matrix}
-                if \ x\geq 0 & \\ if \ \alpha * x < 0
-                & 
-               \end{matrix} \right\}$$
+            \begin{equation}
+                f(x) =\left \{\frac{x}{0} \ \ \ \ \begin{matrix}
+                    if \ x\geq 0 & \\ if \ \alpha * x < 0
+                    & 
+                   \end{matrix} \right\}    
+            \end{equation}
+            
             \begin{figure}[ht]
                 \centering
                 \includegraphics[width=2.6in]{./figures/leakyrelucurve.png}
                 \caption{Leaky Relu curve}
             \end{figure}
-            \item {\bf Prelu:}Parametric ReLU is another variant of ReLU that aims to solve the problem of gradient’s becoming zero for the left half axis. This function provides the slope of the negative part of the function as an argument. 
+            \item {\bf Prelu:}Parametric ReLU is another variant of ReLU that aims to solve the problem of gradient’s becoming zero for the left half axis. This function provides the slope of the negative part of the function as an argument.\cite{r5}
             \begin{figure}[ht]
                 \centering
                 \includegraphics[width=2.5in]{./figures/prelucurve.png}
                 \caption{Parametric Relu curve}
             \end{figure} \\
             Mathematically it can be represented as:
-            $$R(x) =\left \{\frac{x}{0} \ \ \ \ \begin{matrix}
-                if \ x\geq 0 & \\ if \ a * x < 0
-                & 
-               \end{matrix} \right\}$$
+            \begin{equation}
+                R(x) =\left \{\frac{x}{0} \ \ \ \ \begin{matrix}
+                    if \ x\geq 0 & \\ if \ a * x < 0
+                    & 
+                   \end{matrix} \right\} 
+            \end{equation}
+           
                where ‘a’ is the slope parameter for negative values. Prelu can learn slope parameter using backpropagation at a negligible increase in the cost of training.
         \end{itemize}
-        \item {\bf Pixel Shuffle:} The Pixel shuffle is a technique used in image super resolution to upscale an image by a factor of r. It works by rearranging the pixels in a feature map of size $(W,H,C * r^2)$ to form a super-pixel feature map of size (r*W, r*H, C).\\The pixel shuffle operation can be described as follows:
+        \item {\bf Pixel Shuffle:} The Pixel shuffle is a technique used in image super resolution to upscale an image by a factor of r. It works by rearranging the pixels in a feature map of size $(W,H,C * r^2)$ to form a super-pixel feature map of size (r*W, r*H, C). \cite{r7}\\The pixel shuffle operation can be described as follows:
         \begin{itemize}
             \item For each pixel in the input feature map, split its value into $r^2$ sub-pixels.
-            \item Arrange the sub-pixels in grid-like pattern, with each sub-pixels occupying a position in a feature map
+            \item Arrange the sub-pixels in grid-like pattern, with each sub-pixels occupying a position in a feature map.
         \end{itemize}
         \begin{figure}[ht]
             \centering
@@ -116,3 +127,4 @@ SR aims to then reverse whichever degradation process is considered, to retrieve
             \caption{Residual block}
         \end{figure}
     \end{enumerate}
+    \nocite{r8}
