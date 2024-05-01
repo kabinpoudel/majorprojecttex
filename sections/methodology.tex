@@ -16,7 +16,7 @@ In this chapter we will discuss about Data Collection, Data Preprocessing , Metr
         \subsection{Data Preprocessing}
  We can't process the images directly as images are very resource intensive, We need to train on the cropped patches of images. And to train generator we need high resolution and low resolution version of same patch. In Data Preprocessing step we crop and downsample the images. 
     \begin{itemize}
-        \item Cropping: We need to crop a random patch of image every time. So We create a fucntion to give  valid left, top, right, bottom postion of images for a certain patch size. In this case we use 96x96 patch of an image. We then use crop function of the PIL library to crop a patch of image by passing those postions.
+        \item Cropping: We need to crop a random patch of image every time. So We create a function to give  valid left, top, right, bottom postion of images for a certain patch size. In this case we use 96x96 patch of an image. We then use crop function of the PIL library to crop a patch of image by passing those postions.
         \item Downsampling: We use Bicubic downsampling  to downsample the cropped patch of image by a scaling factor of 4 in this case. Bicubic Downsampling is a method used to reduce the resolution of an image by averaging pixel values in a specific way. It is commonly employed in image processing and computer graphics when it's necessary to create a lower-resolution version of an image.
     \end{itemize}
     \subsection{Training}
@@ -26,17 +26,17 @@ In this chapter we will discuss about Data Collection, Data Preprocessing , Metr
         \begin{itemize}
             \item Input: Downsampled images of size 24x24 for 4x scaling and 32x32 for 3x scaling only in Y-channel.
             \item Optimizer: Adam optimizer with a learning rate of 1e-4.
-            \item Loss fucntion:Mean Squared Error (MSE) loss between the generated images and the original high-resolution images.
+            \item Loss function:Mean Squared Error (MSE) loss between the generated images and the original high-resolution images.
         \end{itemize}
         \item For SRResNet:
         \begin{itemize}
             \item Input: Downsampled images of size 24x24.
             \item Optimizer: Adam optimizer with a learning rate of 1e-4.
-            \item Loss fucntion:Mean Squared Error (MSE) loss between the generated images and the original high-resolution images.
+            \item Loss function:Mean Squared Error (MSE) loss between the generated images and the original high-resolution images.
         \end{itemize}
         \item For SRGAN
         \begin{enumerate}[label=(\alph*)]
-            \item Input: Downsampled images of size 24x24.
+            \item Input: Down sampled images of size 24x24.
             \item Optimizer: Adam optimizer with a learning rate of 1e-4.
             \item Loss Function: \\
             Perceptual Loss = Content Loss + Adversarial Loss
@@ -47,7 +47,7 @@ In this chapter we will discuss about Data Collection, Data Preprocessing , Metr
         \end{enumerate}
     \end{enumerate}
     \subsection{Evaluation Metrics}
-    We use PSNR and SSIM as two evaluation Metrics to measure the performance of the models. Although, Images perception is very different for humans than these metrics. It provides some theoretical value to compare. The author of SRGAN paper suggested Mean opinion score as a better alternative but it is very difficult to conduct such survey.\\
+    We use PSNR and SSIM as two evaluation metrics to measure the performance of the models. Although, Images perception is very different for humans than these metrics. It provides some theoretical value to compare. The author of SRGAN paper suggested Mean opinion score as a better alternative but it is very difficult to conduct such survey.\\
     \begin{itemize}
         \item {\bf PSNR (Peak Signal-to-Noise Ratio)} is a measure of the quality of a reconstructed or processed image. It compares the peak signal power to the noise power that affects the quality of the image. It can be calculated as :
         \begin{equation}

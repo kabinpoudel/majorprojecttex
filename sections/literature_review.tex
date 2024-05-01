@@ -5,7 +5,7 @@ of deep-learning based image scaling techniques interpolation methods were less 
 
 D. Han (2013) {\bf“Comparison of commonly used image interpolation methods”} discusses multiple interpolation methods like nearest neighbor, bilinear, bicubic, etc. Although interpolation is fast but have some disadvantages. But using these methods was not optimal for our use case as they may lead to the loss of fine details and sharpness in image and can amplify noise present in image which may not be accurate in real-world images.\cite{r1}
 
-C. Dong, et. al, {\bf“Image super-resolution using deep convolutional networks”} is a seminal paper on use of Deep Learning for the use of for the task of SR. It only consists of three layers and requires the LR image to be up-sampled using bicubic interpolation prior to being processed by the network, but it was shown to outperform the state-ofthe-art methods of that time.\cite{r2}
+C. Dong, et. al, {\bf“Image super-resolution using deep convolutional networks”} is a seminal paper on the application of the Deep Learning for the task of super resolution. It only consists of three layers and requires the LR image to be up-sampled using bicubic interpolation prior to being processed by the network, but it was shown to outperform the state of the art methods of that time.\cite{r2}
 
 W. Yang et al., {\bf "Deep Learning for single image super resolution"} is an article that discusses the challenges of SISR and how deep learning has been applied to address them. The authors review representative deep learning-based SISR methods, categorizing them by their contributions to two key aspects: efficient neural network architectures and effective optimization objectives. They analyze the strengths and weaknesses of these methods. Some limitations of current methods include the use of bicubic interpolation as input, the lack of efficient upsampling modules, and the difficulty of handling unknown degradations. \cite{r4}
 
@@ -13,5 +13,5 @@ C. Ledig et al., {\bf“Photo-realistic single image super-resolution using a ge
 a perceptual loss function which consists of an adversarial loss and a content loss. The adversarial loss pushes the solution to the natural image manifold using a discriminator
 network that is trained to differentiate between the super-resolved images and original photo-realistic images. In addition, it uses a content loss motivated by perceptual
 similarity in VGG space instead of similarity in pixel RGB space. This deep residual network is able to recover photo-realistic textures from heavily down sampled images on public
-benchmarks. An extensive mean-opinion-score (MOS) test shows hugely significant gains in perceptual quality using SRGAN. The MOS scores obtained with SRGAN are
+benchmarks. An extensive Mean-Opinion-Score (MOS) test shows hugely significant gains in perceptual quality using SRGAN. The MOS scores obtained with SRGAN are
 closer to those of the original high-resolution images than to those obtained with any state-of-the-art method at the time. Both SRResNet and SRGAN are explained in related theory portion of the study.\cite{r3}
